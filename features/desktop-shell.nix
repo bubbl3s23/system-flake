@@ -4,6 +4,9 @@
     xwayland-satellite
     ripgrep
     fd
+    nemo
+    ddcutil
+
     nerd-fonts.fira-code
     nerd-fonts.droid-sans-mono
     nerd-fonts.fira-code
@@ -14,19 +17,23 @@
     nerd-fonts.mononoki
   ];
 
-  systemd.user.services.niri.enableDefaultPath = false;
   programs.niri.enable = true;
+
+  # services.gnome.gnome-keyring.enable = true;
+
   hardware.bluetooth.enable = true;
   services.tuned.enable = true;
   services.upower.enable = true;
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${config.programs.niri.package}/bin/niri-session";
-        user = "warp";
-      };
-    };
-  };
+  systemd.user.services.niri.enableDefaultPath = false;
+
+ # services.greetd = {
+ #  enable = true;
+ #  settings = {
+ #    default_session = {
+ #      command = "${config.programs.niri.package}/bin/niri-session";
+ #      user = "warp";
+ #    };
+ #  };
+ # };
 }

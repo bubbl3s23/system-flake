@@ -13,10 +13,10 @@
     nixosConfigurations.terra = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-        ./configuration.nix
-        ./hardware-configuration.nix
-        ./desktop-shell.nix
-        ./i2pd-container.nix
+        ./terra/configuration.nix
+        ./terra/hardware-configuration.nix
+        ./features/desktop-shell.nix
+        ./features/i2pd-container.nix
       ];
     };
   };

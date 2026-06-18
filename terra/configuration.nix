@@ -23,6 +23,16 @@
     pulse.enable = true;
   };
 
+  security.polkit = {
+    enable = true;
+    extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (subject.isInGroup("wheel"))
+        return polkit.Result.YES;
+    });
+  '';
+  }
+ 
   users.users."warp" = {
     isNormalUser = true;
     description = "warp";
