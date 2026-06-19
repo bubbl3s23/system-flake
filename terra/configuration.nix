@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, inputs, ... }: {
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
@@ -12,7 +12,7 @@
 
   time.timeZone = "America/Mazatlan";
   i18n.defaultLocale = "en_US.UTF-8";
-  # services.printing.enable = true;
+  services.printing.enable = true;
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -26,12 +26,12 @@
   security.polkit = {
     enable = true;
     extraConfig = ''
-    polkit.addRule(function(action, subject) {
-      if (subject.isInGroup("wheel"))
-        return polkit.Result.YES;
-    });
-  '';
-  }
+      polkit.addRule(function(action, subject) {
+        if (subject.isInGroup("wheel"))
+          return polkit.Result.YES;
+      });
+    '';
+  };
  
   users.users."warp" = {
     isNormalUser = true;
@@ -45,13 +45,13 @@
       ghostty
       emacs-gtk
       mpv
-      wl-clipboard-rs
       antigravity
       ungoogled-chromium
-
-      typescript
-      gcc
-      bun
+      amberol
+      tauon
+      nemo
+      nautilus
+      chafa
     ];
   };
 
@@ -63,8 +63,13 @@
     vim
     wget
     git
-    neovim
     btop
+    nssmdns
+    typescript
+    gcc
+    bun
+    pciutils
+    fastfetch
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];

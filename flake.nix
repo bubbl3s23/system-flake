@@ -7,6 +7,13 @@
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    noctalia-greeter = {
+        url = "github:noctalia-dev/noctalia-greeter";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -17,6 +24,7 @@
         ./terra/hardware-configuration.nix
         ./features/desktop-shell.nix
         ./features/i2pd-container.nix
+        ./features/neovim.nix
       ];
     };
   };

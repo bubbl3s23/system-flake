@@ -1,10 +1,9 @@
 { pkgs, inputs, config, ... }: {
+  imports = [ inputs.noctalia-greeter.nixosModules.default ];
+
   environment.systemPackages = with pkgs; [
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     xwayland-satellite
-    ripgrep
-    fd
-    nemo
     ddcutil
 
     nerd-fonts.fira-code
@@ -27,13 +26,15 @@
 
   systemd.user.services.niri.enableDefaultPath = false;
 
- # services.greetd = {
- #  enable = true;
- #  settings = {
- #    default_session = {
- #      command = "${config.programs.niri.package}/bin/niri-session";
- #      user = "warp";
- #    };
- #  };
- # };
+  programs.noctalia-greeter = {
+    enable = true;
+    package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
+    greeter-args = "--session Niri";
+    settings.cursor = {
+      theme = "Adwaita";
+      size = 24;
+      package = pkgs.adwaita-icon-theme;
+    };
+  };
 }
