@@ -25,6 +25,7 @@
         ./features/desktop-shell.nix
         ./features/i2pd-container.nix
         ./features/neovim.nix
+        ./features/games.nix
       ];
     };
   };
