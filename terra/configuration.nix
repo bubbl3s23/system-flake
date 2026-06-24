@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ pkgs, ... }: {
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
@@ -32,12 +32,14 @@
       });
     '';
   };
- 
+
+  nixpkgs.config.allowUnfree = true;
+
   users.users."warp" = {
     isNormalUser = true;
     description = "warp";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    packages = with pkgs; [ 
       librewolf
       calibre
       qbittorrent-enhanced
@@ -51,15 +53,14 @@
       tauon
       nemo
       nautilus
+      kdePackages.koko
       chafa
+      gnome-text-editor
     ];
   };
 
-  programs.firefox.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = with pkgs; [
+    gnome-feeds
     vim
     wget
     git
@@ -68,13 +69,51 @@
     typescript
     gcc
     bun
+    nixd
     pciutils
     fastfetch
+    gpu-viewer
+    mesa-demos
+    bubblewrap
+    fuse-overlayfs
+    dwarfs
+
+    fishPlugins.done
+    fishPlugins.fzf-fish
+    fishPlugins.forgit
+    fishPlugins.hydro
+    fzf
+    fishPlugins.grc
+    grc
   ];
+
+  programs.firefox.enable = true;
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting
+      alias vim="nvim"
+      alias add="git add ."
+      alias commit="git commit -m"
+      alias reload-ghostty="systemctl reload --user app-com.mitchellh.ghostty.service"
+    '';
+  };
+
+  programs.bash = {
+    interactiveShellInit = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+      fi
+    '';
+  };
+
+  services.openssh.enable = true;
+  virtualisation.docker.enable = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.accept-flake-config = false;
 
-  services.openssh.enable = true;
   system.stateVersion = "26.05";
  }

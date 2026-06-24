@@ -16,7 +16,7 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }: {
+  outputs = inputs@{ nixpkgs, ... }: {
     nixosConfigurations.terra = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [

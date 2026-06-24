@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }: {
+{ pkgs, inputs, ... }: {
   imports = [ inputs.noctalia-greeter.nixosModules.default ];
 
   environment.systemPackages = with pkgs; [
@@ -18,8 +18,6 @@
 
   programs.niri.enable = true;
 
-  # services.gnome.gnome-keyring.enable = true;
-
   hardware.bluetooth.enable = true;
   services.tuned.enable = true;
   services.upower.enable = true;
@@ -30,7 +28,6 @@
     enable = true;
     package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
-    greeter-args = "--session Niri";
     settings.cursor = {
       theme = "Adwaita";
       size = 24;
