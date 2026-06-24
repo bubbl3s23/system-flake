@@ -77,6 +77,7 @@
     bubblewrap
     fuse-overlayfs
     dwarfs
+    xdelta
 
     fishPlugins.done
     fishPlugins.fzf-fish
