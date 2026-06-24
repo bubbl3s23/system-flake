@@ -6,6 +6,20 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true;
+        FastConnectable = true;
+      };
+      Policy = {
+        AutoEnable = true;
+      };
+    };
+  };
+
   networking.hostName = "terra";
   networking.networkmanager.enable = true;
   networking.wireless.enable = true;
@@ -51,16 +65,15 @@
       ungoogled-chromium
       amberol
       tauon
-      nemo
       nautilus
       kdePackages.koko
       chafa
       gnome-text-editor
+      gnome-feeds
     ];
   };
 
   environment.systemPackages = with pkgs; [
-    gnome-feeds
     vim
     wget
     git

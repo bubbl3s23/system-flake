@@ -4,9 +4,9 @@
     config = { ... }: {
       networking.firewall.allowedTCPPorts = [
         7656
-          7070
-          4447
-          4444
+        7070
+        4447
+        4444
       ];
 
       services.i2pd = {
