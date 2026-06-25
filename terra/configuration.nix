@@ -6,20 +6,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        Experimental = true;
-        FastConnectable = true;
-      };
-      Policy = {
-        AutoEnable = true;
-      };
-    };
-  };
-
   networking.hostName = "terra";
   networking.networkmanager.enable = true;
   networking.wireless.enable = true;
@@ -37,16 +23,6 @@
     pulse.enable = true;
   };
 
-  security.polkit = {
-    enable = true;
-    extraConfig = ''
-      polkit.addRule(function(action, subject) {
-        if (subject.isInGroup("wheel"))
-          return polkit.Result.YES;
-      });
-    '';
-  };
-
   nixpkgs.config.allowUnfree = true;
 
   users.users."warp" = {
@@ -58,40 +34,32 @@
       calibre
       qbittorrent-enhanced
       alacritty
-      ghostty
       emacs-gtk
-      mpv
       antigravity
       ungoogled-chromium
       amberol
       tauon
-      nautilus
-      kdePackages.koko
       chafa
-      gnome-text-editor
-      gnome-feeds
+      btop
+      yazi
     ];
   };
 
   environment.systemPackages = with pkgs; [
+    # basic system packages
     vim
     wget
     git
-    btop
-    nssmdns
+    nssmdns # I forgot
+    fastfetch
+    xdelta
+    pciutils
+    gzip
+    #langs
     typescript
     gcc
     bun
-    nixd
-    pciutils
-    fastfetch
-    gpu-viewer
-    mesa-demos
-    bubblewrap
-    fuse-overlayfs
-    dwarfs
-    xdelta
-
+    # fish
     fishPlugins.done
     fishPlugins.fzf-fish
     fishPlugins.forgit

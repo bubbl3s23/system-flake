@@ -18,5 +18,6 @@
     pyright
     astro-language-server
     nixfmt-rs
+    nixd
   ];
 }
