@@ -14,6 +14,20 @@
   i18n.defaultLocale = "en_US.UTF-8";
   services.printing.enable = true;
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true;
+        FastConnectable = true;
+      };
+      Policy = {
+        AutoEnable = true;
+      };
+    };
+  };
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -42,6 +56,7 @@
       chafa
       btop
       yazi
+      devenv
     ];
   };
 
@@ -50,7 +65,7 @@
     vim
     wget
     git
-    nssmdns # I forgot
+    nssmdns
     fastfetch
     xdelta
     pciutils
@@ -64,6 +79,7 @@
     fishPlugins.fzf-fish
     fishPlugins.forgit
     fishPlugins.hydro
+    fishPlugins.colored-man-pages
     fzf
     fishPlugins.grc
     grc
