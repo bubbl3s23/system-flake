@@ -88,12 +88,42 @@
   programs.firefox.enable = true;
   programs.fish = {
     enable = true;
+    shellInit = ''
+      fish_vi_key_bindings
+    '';
     interactiveShellInit = ''
       set fish_greeting
+      set fish_vi_force_cursor 1
+
       alias vim="nvim"
       alias add="git add ."
       alias commit="git commit -m"
       alias reload-ghostty="systemctl reload --user app-com.mitchellh.ghostty.service"
+
+      function fish_user_key_bindings
+        # Complete with menu (shows list)
+        bind -M insert '\c@' complete
+
+        # Complete without menu (in-line)
+        bind -M insert \e complete
+
+        # Accept autosuggestion
+        bind -M insert \cy accept-autosuggestion
+        bind -M normal \cy accept-autosuggestion
+
+        # Cycle through completion suggestions
+        bind -M insert \cp up-or-search
+        bind -M insert \cn down-or-search
+
+        # Navigate in completion menu
+        bind -M insert \cp up-or-search
+        bind -M insert \cn down-or-search
+
+        # Press tab to open menu, then j/k to navigate
+        bind -M insert \ct tab-command
+
+        complete -c docker -n "__fish_seen_subcommand_from stop" -a "(docker ps -a --format '{{.Names}}')" -d "Container"
+      end
     '';
   };
 
