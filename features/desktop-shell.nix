@@ -14,6 +14,7 @@
     ghostty
     blueman
     font-manager
+    swayimg
   ];
 
   fonts.packages = with pkgs; [
