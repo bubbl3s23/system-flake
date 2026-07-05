@@ -12,6 +12,15 @@
       services.i2pd = {
         enable = true;
         address = "127.0.0.1";
+        inTunnels = {
+          retroshare = {
+            enable = true;
+            type = "server";
+            name = "retroshare";
+            port = 54247;
+            keys = "retroshare-keys.dat";
+          };
+        };
         proto = {
           http.enable = true;
           socksProxy.enable = true;

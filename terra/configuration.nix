@@ -10,6 +10,10 @@
   networking.networkmanager.enable = true;
   networking.wireless.enable = true;
 
+  networking.firewall.allowedTCPPorts = [
+    2234
+  ];
+
   time.timeZone = "America/Mazatlan";
   i18n.defaultLocale = "en_US.UTF-8";
   services.printing.enable = true;
@@ -39,9 +43,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  users.users."warp" = {
+  users.users."juno" = {
     isNormalUser = true;
-    description = "warp";
+    description = "juno";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       librewolf
@@ -56,6 +60,10 @@
       chafa
       btop
       yazi
+      retroshare
+      zathura
+      keepassxc
+      nicotine-plus
     ];
   };
 
@@ -142,6 +150,12 @@
         exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
       fi
     '';
+  };
+
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
   };
 
   services.openssh.enable = true;
